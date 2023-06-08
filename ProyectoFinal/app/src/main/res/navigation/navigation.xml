@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_logIn_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_logIn_to_bienvenida"
+            app:destination="@id/bienvenida" />
     </fragment>
     <fragment
         android:id="@+id/register_fragment"

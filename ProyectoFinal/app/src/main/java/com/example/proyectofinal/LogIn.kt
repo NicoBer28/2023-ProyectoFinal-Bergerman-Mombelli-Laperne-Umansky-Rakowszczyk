@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +26,10 @@ lateinit var claveIngresada : String
 
 class LogIn : Fragment() {
 
+    private lateinit var viewModel: LogInViewModel
+
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -34,7 +39,6 @@ class LogIn : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_log_in, container, false)
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +70,8 @@ class LogIn : Fragment() {
                 auth.signInWithEmailAndPassword(usuarioIngresado, claveIngresada)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            findNavController().navigate(R.id.mapsFragment)
+                            sharedViewModel.setUsuario(usuarioIngresado)
+                            findNavController().navigate(R.id.bienvenida)
                         } else {
                             val snackbar =
                                 Snackbar.make(it, "MAL", Snackbar.LENGTH_SHORT)
