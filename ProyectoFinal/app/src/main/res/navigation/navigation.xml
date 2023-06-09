@@ -14,29 +14,33 @@
             android:id="@+id/action_logIn_to_register_fragment"
             app:destination="@id/register_fragment" />
         <action
-            android:id="@+id/action_logIn_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-        <action
             android:id="@+id/action_logIn_to_bienvenida"
             app:destination="@id/bienvenida" />
+        <action
+            android:id="@+id/action_logIn_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
+        <action
+            android:id="@+id/action_logIn_to_ubicacionActivity"
+            app:destination="@id/ubicacionActivity" />
     </fragment>
     <fragment
         android:id="@+id/register_fragment"
         android:name="com.example.proyectofinal.Register_fragment"
         android:label="fragment_register_fragment"
-        tools:layout="@layout/fragment_register_fragment" >
-        <action
-            android:id="@+id/action_register_fragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.example.proyectofinal.mapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_register_fragment" />
     <fragment
         android:id="@+id/bienvenida"
         android:name="com.example.proyectofinal.bienvenida"
         android:label="fragment_bienvenida"
         tools:layout="@layout/fragment_bienvenida" />
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.example.proyectofinal.mapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
+    <activity
+        android:id="@+id/ubicacionActivity"
+        android:name="com.example.proyectofinal.ubicacionActivity"
+        android:label="activity_ubicacion"
+        tools:layout="@layout/activity_ubicacion" />
 </navigation>

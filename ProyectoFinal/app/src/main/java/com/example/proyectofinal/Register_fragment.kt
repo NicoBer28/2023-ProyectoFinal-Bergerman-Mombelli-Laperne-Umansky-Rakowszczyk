@@ -133,7 +133,7 @@ class Register_fragment : Fragment() {
                                 Snackbar.make(it, "usuario creado", Snackbar.LENGTH_SHORT)
                             snackbar.show()
 
-                            findNavController().navigate(R.id.mapsFragment)
+                            findNavController().navigate(R.id.mapsActivity)
 
                         } else {
                             // If sign in fails, display a message to the user.

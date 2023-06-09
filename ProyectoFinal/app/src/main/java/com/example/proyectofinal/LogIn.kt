@@ -32,6 +32,7 @@ class LogIn : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,8 +71,9 @@ class LogIn : Fragment() {
                 auth.signInWithEmailAndPassword(usuarioIngresado, claveIngresada)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
+
                             sharedViewModel.setUsuario(usuarioIngresado)
-                            findNavController().navigate(R.id.bienvenida)
+                            findNavController().navigate(R.id.mapsActivity)
                         } else {
                             val snackbar =
                                 Snackbar.make(it, "MAL", Snackbar.LENGTH_SHORT)
