@@ -40,7 +40,7 @@
             android:hint="Username"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="nico.ber2005@gmail.com"
+            android:text="mombellifrancisco@gmail.com"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

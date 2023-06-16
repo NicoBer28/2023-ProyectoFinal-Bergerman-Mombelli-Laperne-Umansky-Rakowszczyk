@@ -1,11 +1,21 @@
 package com.example.proyectofinal
 
+import android.Manifest
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
+import android.content.pm.PackageManager
+import android.location.LocationListener
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 lateinit var botonLogin: Button
 lateinit var botonRegistro: Button
@@ -24,6 +35,8 @@ lateinit var clave : EditText
 lateinit var usuarioIngresado : String
 lateinit var claveIngresada : String
 
+lateinit var locationManager: LocationManager
+
 class LogIn : Fragment() {
 
     private lateinit var viewModel: LogInViewModel
@@ -31,6 +44,8 @@ class LogIn : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var auth: FirebaseAuth
+
+    private val requestcode = 1
 
 
     override fun onCreateView(
@@ -71,7 +86,8 @@ class LogIn : Fragment() {
                 auth.signInWithEmailAndPassword(usuarioIngresado, claveIngresada)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-
+                            val userActual = FirebaseAuth.getInstance().currentUser
+                            //getLocation()
                             sharedViewModel.setUsuario(usuarioIngresado)
                             findNavController().navigate(R.id.mapsActivity)
                         } else {
@@ -114,11 +130,132 @@ class LogIn : Fragment() {
                         }
                 }
             }
+        }
+    }
 
 
+    private fun getLocation() {
+
+        var locationGps: Location? = null
+        var locationNetwork: Location? = null
+
+        val uid = Firebase.auth.currentUser?.uid
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+        //Pedir permiso de ubicacion
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION),
+                requestcode
+            )
         }
 
+        if (hasGps || hasNetwork) {
 
+            if (hasGps) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0F, object : LocationListener {
+                    override fun onLocationChanged(p0: Location) {
+                        if (p0 != null) {
+                            locationGps = p0
+                            if (uid != null) {
+                                Firebase.firestore.collection("users").document(uid).update("Longitud",
+                                    locationGps!!.longitude,"Latitud", locationGps!!.latitude)
+                                    .addOnSuccessListener {
+                                        val snackbar =
+                                            Snackbar.make(requireView(), "Location Data feeds start", Snackbar.LENGTH_SHORT)
+                                        snackbar.show()
+                                    }
+                                    .addOnFailureListener {
+                                        val snackbar =
+                                            Snackbar.make(requireView(), "Failed location feed", Snackbar.LENGTH_SHORT)
+                                        snackbar.show()
+                                    }
+                            }
+                        }
+                    }
 
+                })
+
+                val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                if (localGpsLocation != null)
+                    locationGps = localGpsLocation
+            }
+            if (hasNetwork) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener {
+                    override fun onLocationChanged(p0: Location) {
+                        if (p0 != null) {
+                            locationNetwork = p0
+                            if (uid != null) {
+                                Firebase.firestore.collection("Drivers").document(uid).update("Longitude",
+                                    locationNetwork!!.longitude,"Latitude", locationNetwork!!.latitude)
+                                    .addOnSuccessListener {
+                                        val snackbar =
+                                            Snackbar.make(requireView(), "Location Data feeds start", Snackbar.LENGTH_SHORT)
+                                        snackbar.show()
+                                    }
+                                    .addOnFailureListener {
+                                        val snackbar =
+                                            Snackbar.make(requireView(), "Failed location feed", Snackbar.LENGTH_SHORT)
+                                        snackbar.show()
+                                    }
+                            }
+                        }
+                    }
+
+                })
+
+                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                if (localNetworkLocation != null)
+                    locationNetwork = localNetworkLocation
+            }
+
+            if(locationGps!= null && locationNetwork!= null){
+                if(locationGps!!.accuracy > locationNetwork!!.accuracy){
+                    if (uid != null) {
+                        Firebase.firestore.collection("Drivers").document(uid).update("Longitude",
+                            locationGps!!.longitude,"Latitude", locationGps!!.latitude)
+                            .addOnSuccessListener {
+                                val snackbar =
+                                    Snackbar.make(requireView(), "Location Data feeds start", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
+                            .addOnFailureListener {
+                                val snackbar =
+                                    Snackbar.make(requireView(), "Failed location feed", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
+                    }
+                }else{
+                    if (uid != null) {
+                        Firebase.firestore.collection("Drivers").document(uid).update("Longitude",
+                            locationNetwork!!.longitude,"Latitude", locationNetwork!!.latitude)
+                            .addOnSuccessListener {
+                                val snackbar =
+                                    Snackbar.make(requireView(), "Location Data feeds start", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
+                            .addOnFailureListener {
+                                val snackbar =
+                                    Snackbar.make(requireView(), "Failed location feed", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
+                    }
+                }
+            }
+
+        } else {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
     }
 }
