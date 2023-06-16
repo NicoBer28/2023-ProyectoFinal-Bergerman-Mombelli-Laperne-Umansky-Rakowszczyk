@@ -17,6 +17,11 @@ int colorIzq;
 int colorDer;
 float distancia;
 int encendido = 0;
+char numeroEstrategia;
+int funcionamiento;
+int aaa;
+void (*funciones[3])();
+
 
 void setup() {
 
@@ -27,32 +32,45 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   pinMode(BOTON, INPUT_PULLUP);
+  funciones[0] = funcion1;
+  funciones[1] = funcion2;
+  funciones[2] = funcion3;
+
   Serial.begin(115200);
-
 }
-
 
 void loop() {
 
-  if (Serial.available())
-  {
-    char dato = Serial.read();
-    Serial.println("Dato recibido: ");
-    Serial.println(dato);
+  switch (funcionamiento) {
+    case 0:
+      if (Serial.available())
+      {
+        numeroEstrategia = Serial.read();
+        Serial.println("Dato recibido: ");
+        Serial.println(numeroEstrategia);
+        aaa = 1;
+      }
+      if (aaa == 1) {
+        funciones[atoi(&numeroEstrategia)]();
+      }
+      break;
+    case 1:
+      funciones[atoi(&numeroEstrategia)]();
   }
-
-  if (digitalRead(BOTON) == LOW && encendido == 0) {
-    delay(5000);
-    encendido = 1;
-  }
-  while (encendido == 1) {
-    colorIzq = leerCNY(SP_IZQ);
-    colorDer = leerCNY(SP_DER);
-    distancia = medicionUltrasonico();
-    merodeando();
-    buscar();
-    noCaerse();
-  }
+  /*
+    if (digitalRead(BOTON) == LOW && encendido == 0) {
+      delay(5000);
+      encendido = 1;
+    }
+    while (encendido == 1) {
+      colorIzq = leerCNY(SP_IZQ);
+      colorDer = leerCNY(SP_DER);
+      distancia = medicionUltrasonico();
+      merodeando();
+      buscar();
+      noCaerse();
+    }
+  */
 }
 
 int leerCNY(int pin) {
@@ -139,6 +157,14 @@ float medicionUltrasonico() {
   Serial.print("Valor Ultrasonico");
   Serial.print(distanciaUltrasonico);
 
-
   return distanciaUltrasonico;
+}
+void funcion1() {
+  Serial.println("XXXX");
+}
+void funcion2() {
+  Serial.println("YYYY");
+}
+void funcion3() {
+  Serial.println("ZZZZ");
 }
