@@ -1,82 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogIn">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="#BFBFBF"
+        android:foregroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dise_o_sin_t_tulo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="153dp"
-            android:layout_height="60dp"
-            android:text="REGISTRARSE"
+            android:id="@+id/restablecerContra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:colorAccent="#ffffff"
+            android:cursorVisible="true"
+            android:text="reestablecer contraseña"
+            android:textColorHint="#3F51B5"
+            app:cornerRadius="@android:dimen/app_icon_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
+            app:layout_constraintVertical_bias="0.566"
+            app:strokeColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnRegister2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:colorAccent="#ffffff"
+            android:text="REGISTRARSE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.818"
+            app:strokeColor="#000000" />
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="156dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
             android:text="LOG IN"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnRegister2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/restablecerContra"
+            app:layout_constraintVertical_bias="0.842"
+            app:strokeColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="225dp"
-            android:layout_height="50dp"
+            android:layout_width="235dp"
+            android:layout_height="63dp"
+            android:background="#FFC107"
+            android:backgroundTint="#000000"
+            android:backgroundTintMode="add"
             android:ems="10"
             android:hint="Username"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="nico.ber2005@gmail.com"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.174" />
+            app:layout_constraintVertical_bias="0.297" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="249dp"
-            android:layout_height="52dp"
+            android:layout_width="242dp"
+            android:layout_height="60dp"
+            android:background="#FFC107"
+            android:backgroundTint="#000000"
+            android:backgroundTintMode="add"
+            android:drawableTint="#000000"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:text="Abc123!"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/btnLogin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.574"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"
-            app:layout_constraintVertical_bias="0.475" />
+            app:layout_constraintVertical_bias="0.129" />
 
-        <Button
-            android:id="@+id/restablecerContra"
-            android:layout_width="250dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="81dp"
-            android:text="Restablecer contraseña"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.474"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRegister"
-            app:layout_constraintVertical_bias="0.049" />
+        <!--  res/drawable/rounded_edittext.xml -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
