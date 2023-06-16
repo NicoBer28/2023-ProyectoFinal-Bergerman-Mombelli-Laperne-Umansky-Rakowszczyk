@@ -17,31 +17,22 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-lateinit var name: EditText
-lateinit var apellido : EditText
-lateinit var email: EditText
-lateinit var direccion: EditText
-lateinit var edad: EditText
-lateinit var usernameCreate: EditText
-lateinit var passwordCreate : EditText
-lateinit var  passwordConfirm: EditText
+lateinit var nombre_vendedor: EditText
+lateinit var email_vendedor: EditText
+lateinit var direccion_vendedor: EditText
+lateinit var password_vendedor : EditText
+lateinit var  confirmar_password_vendedor: EditText
+lateinit var btnConfirmar_registro_vendedor: Button
 
-lateinit var btnPreviousFragment: Button
-lateinit var btnRegister_vendedor: Button
-lateinit var registerConfirm: Button
+lateinit var nombreVendedor : String
+lateinit var emailVendedor : String
+lateinit var direccionVendedor : String
+lateinit var contraseñaVendedor : String
+lateinit var contraConfVendedor : String
 
-lateinit var nombreIngresado : String
-lateinit var apellidoIngresado : String
-lateinit var emailIngresado : String
-lateinit var direccionIngresada : String
-lateinit var edadIngresada : String
-lateinit var userIngresado : String
-lateinit var contraIngresada : String
-lateinit var contraConfIngresada : String
+var flag1 = 0
 
-var flag = 0
-
-class Register_fragment : Fragment() {
+class registrar_vendedor_fragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -49,7 +40,7 @@ class Register_fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_register_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_fragment, container, false)
     }
 
 
@@ -60,35 +51,27 @@ class Register_fragment : Fragment() {
 
         auth = Firebase.auth
 
-        btnPreviousFragment = view.findViewById<Button>(R.id.btnPreviousFragment)
         btnRegister_vendedor = view.findViewById<Button>(R.id.btnRegister_vendedor)
-        registerConfirm = view.findViewById<Button>(R.id.registerConfirm)
-        name = view.findViewById<EditText>(R.id.name)
-        apellido = view.findViewById<EditText>(R.id.apellido)
-        email = view.findViewById<EditText>(R.id.email)
-        direccion = view.findViewById<EditText>(R.id.direccion)
-        edad = view.findViewById<EditText>(R.id.edad)
-        usernameCreate = view.findViewById<EditText>(R.id.usernameCreate)
-        passwordCreate = view.findViewById<EditText>(R.id.passwordCreate)
-        passwordConfirm = view.findViewById<EditText>(R.id.passwordConfirm)
+        btnConfirmar_registro_vendedor = view.findViewById<Button>(R.id.btnConfirmar_registro_vendedor)
+        nombre_vendedor = view.findViewById<EditText>(R.id.nombre_vendedor)
+        email_vendedor = view.findViewById<EditText>(R.id.email_vendedor)
+        direccion_vendedor = view.findViewById<EditText>(R.id.direccion_vendedor)
+        password_vendedor = view.findViewById<EditText>(R.id.vendedor_password)
+        confirmar_password_vendedor = view.findViewById<EditText>(R.id.confirmar_password_vendedor)
 
         registerConfirm.setOnClickListener {
-            nombreIngresado = name.text.toString()
-            apellidoIngresado = apellido.text.toString()
-            emailIngresado = email.text.toString()
-            direccionIngresada = direccion.text.toString()
-            edadIngresada = edad.text.toString()
-            userIngresado = usernameCreate.text.toString()
-            contraIngresada = passwordCreate.text.toString()
-            contraConfIngresada = passwordConfirm.text.toString()
+            nombreVendedor = nombre_vendedor.text.toString()
+            emailVendedor = email.text.toString()
+            direccionVendedor = direccion.text.toString()
+            contraseñaVendedor = passwordCreate.text.toString()
+            contraConfVendedor = passwordConfirm.text.toString()
 
-            var usuarios: MutableList<String> = mutableListOf(nombreIngresado,
-                apellidoIngresado,
-                emailIngresado,
-                edadIngresada,
+            var usuarios: MutableList<String> = mutableListOf(
+                nombreVendedor,
+                emailVendedor,
                 userIngresado,
-                contraIngresada,
-                contraConfIngresada)
+                contraseñaVendedor,
+                contraConfVendedor)
 
             for(campos in usuarios){
                 if(campos == ""){
@@ -96,10 +79,10 @@ class Register_fragment : Fragment() {
                 }
             }
 
-            if(contraIngresada == contraConfIngresada && flag == 0) {
+            if(contraseñaVendedor == contraConfVendedor && flag == 0) {
 
 
-                auth.createUserWithEmailAndPassword(emailIngresado, contraIngresada)
+                auth.createUserWithEmailAndPassword(emailVendedor, contraseñaVendedor)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
                             // Get the currently authenticated user
@@ -114,13 +97,10 @@ class Register_fragment : Fragment() {
 
                             // Set the data for the user document
                             val userData = hashMapOf(
-                                "Nombre" to nombreIngresado,
-                                "Apellido" to apellidoIngresado,
-                                "Email" to emailIngresado,
-                                "Direccion" to direccionIngresada,
-                                "Edad" to edadIngresada,
-                                "User" to userIngresado,
-                                "Contraseña" to contraIngresada
+                                "Nombre" to nombreVendedor,
+                                "Email" to emailVendedor,
+                                "Direccion" to direccionVendedor,
+                                "Contraseña" to contraseñaVendedor
                             )
 
                             userDocRef?.set(userData)?.addOnSuccessListener {
@@ -144,26 +124,20 @@ class Register_fragment : Fragment() {
                             snackbar.show()
                         }
                     }
-        }else {
+            }else {
                 if (flag == 1) {
                     flag = 0
                     val snackbar =
                         Snackbar.make(it, "Hay campos vacios", Snackbar.LENGTH_SHORT)
                     snackbar.show()
                 } else {
-                val snackbar =
-                    Snackbar.make(it, "Las contraseñas no coinciden", Snackbar.LENGTH_SHORT)
-                snackbar.show()
+                    val snackbar =
+                        Snackbar.make(it, "Las contraseñas no coinciden", Snackbar.LENGTH_SHORT)
+                    snackbar.show()
                 }
+            }
         }
-     }
 
-        btnPreviousFragment.setOnClickListener {
-            findNavController().navigate(R.id.logIn)
-        }
-        btnRegister_vendedor.setOnClickListener {
-            findNavController().navigate(R.id.fragment)
-        }
     }
 }
 
