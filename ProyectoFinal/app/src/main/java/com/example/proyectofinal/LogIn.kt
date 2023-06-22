@@ -74,14 +74,13 @@ class LogIn : Fragment() {
 
         usuario = view.findViewById<EditText>(R.id.username)
         clave = view.findViewById<EditText>(R.id.password)
+        getLocation()
 
 
 
         botonLogin.setOnClickListener {
 
-            if (flagFuncionUbicacion == 0) {
-                getLocation()
-            }
+
             usuarioIngresado = usuario.text.toString()
             claveIngresada = clave.text.toString()
 
@@ -94,10 +93,9 @@ class LogIn : Fragment() {
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
                             val userActual = FirebaseAuth.getInstance().currentUser
-                            if (flagFuncionUbicacion == 1) {
-                                sharedViewModel.setUsuario(usuarioIngresado)
-                                findNavController().navigate(R.id.mapsActivity)
-                            }
+                            sharedViewModel.setUsuario(usuarioIngresado)
+                            findNavController().navigate(R.id.mapsActivity)
+
                         } else {
                             val snackbar =
                                 Snackbar.make(it, "MAL", Snackbar.LENGTH_SHORT)
@@ -230,11 +228,11 @@ class LogIn : Fragment() {
                             if (p0 != null) {
                                 locationNetwork = p0
                                 if (uid != null) {
-                                    Firebase.firestore.collection("Drivers").document(uid)
+                                    Firebase.firestore.collection("Users").document(uid)
                                         .update(
-                                            "Longitude",
+                                            "Longitud",
                                             locationNetwork!!.longitude,
-                                            "Latitude",
+                                            "Latitud",
                                             locationNetwork!!.latitude
                                         )
                                         .addOnSuccessListener {
@@ -272,9 +270,9 @@ class LogIn : Fragment() {
             if (locationGps != null && locationNetwork != null) {
                 if (locationGps!!.accuracy > locationNetwork!!.accuracy) {
                     if (uid != null) {
-                        Firebase.firestore.collection("Drivers").document(uid).update(
-                            "Longitude",
-                            locationGps!!.longitude, "Latitude", locationGps!!.latitude
+                        Firebase.firestore.collection("Users").document(uid).update(
+                            "Longitud",
+                            locationGps!!.longitude, "Latitud", locationGps!!.latitude
                         )
                             .addOnSuccessListener {
                                 flagFuncionUbicacion = 1
@@ -299,9 +297,9 @@ class LogIn : Fragment() {
                     }
                 } else {
                     if (uid != null) {
-                        Firebase.firestore.collection("Drivers").document(uid).update(
-                            "Longitude",
-                            locationNetwork!!.longitude, "Latitude", locationNetwork!!.latitude
+                        Firebase.firestore.collection("Users").document(uid).update(
+                            "Longitud",
+                            locationNetwork!!.longitude, "Latitud", locationNetwork!!.latitude
                         )
                             .addOnSuccessListener {
                                 flagFuncionUbicacion = 1
