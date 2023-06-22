@@ -162,7 +162,7 @@ class Register_fragment : Fragment() {
             findNavController().navigate(R.id.logIn)
         }
         btnRegister_vendedor.setOnClickListener {
-            findNavController().navigate(R.id.fragment)
+            findNavController().navigate(R.id.action_register_fragment_to_vendedoresRegistrar)
         }
     }
 }

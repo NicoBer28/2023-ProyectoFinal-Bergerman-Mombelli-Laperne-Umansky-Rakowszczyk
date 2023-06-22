@@ -29,8 +29,8 @@
         android:label="fragment_register_fragment"
         tools:layout="@layout/fragment_register_fragment" >
         <action
-            android:id="@+id/action_register_fragment_to_fragment"
-            app:destination="@id/fragment" />
+            android:id="@+id/action_register_fragment_to_vendedoresRegistrar"
+            app:destination="@id/vendedoresRegistrar" />
     </fragment>
     <fragment
         android:id="@+id/bienvenida"
@@ -48,12 +48,8 @@
         android:label="activity_ubicacion"
         tools:layout="@layout/activity_ubicacion" />
     <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.proyectofinal.fragment"
-        android:label="fragment_fragment"
-        tools:layout="@layout/fragment_fragment" >
-        <action
-            android:id="@+id/action_fragment_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
-    </fragment>
+        android:id="@+id/vendedoresRegistrar"
+        android:name="com.example.proyectofinal.VendedoresRegistrar"
+        android:label="fragment_vendedores_registrar"
+        tools:layout="@layout/fragment_vendedores_registrar" />
 </navigation>
