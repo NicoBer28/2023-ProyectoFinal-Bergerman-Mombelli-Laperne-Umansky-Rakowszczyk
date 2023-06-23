@@ -1,6 +1,7 @@
 package com.example.proyectofinal
 
 import android.Manifest
+import android.content.ContentValues
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.content.pm.PackageManager
 import android.location.LocationListener
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -76,8 +78,6 @@ class LogIn : Fragment() {
         clave = view.findViewById<EditText>(R.id.password)
         getLocation()
 
-
-
         botonLogin.setOnClickListener {
 
 
@@ -92,9 +92,32 @@ class LogIn : Fragment() {
                 auth.signInWithEmailAndPassword(usuarioIngresado, claveIngresada)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            val userActual = FirebaseAuth.getInstance().currentUser
-                            sharedViewModel.setUsuario(usuarioIngresado)
-                            findNavController().navigate(R.id.mapsActivity)
+                            if(flagFuncionUbicacion == 0){
+                                getLocation()
+                            }else {
+                                val userActual = FirebaseAuth.getInstance().currentUser
+                                val idUsuarioActual = userActual?.uid
+                                var latitudUser: Double = 10.0
+                                var longitudUser: Double = 10.0
+
+                                db.collection("users")
+                                    .get()
+                                    .addOnSuccessListener { result ->
+                                        for (document in result) {
+                                            if(document.id == idUsuarioActual){
+                                                latitudUser = document.get("Latitud") as Double
+                                                longitudUser = document.get("Longitud") as Double
+
+                                            }
+                                        }
+
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                                    }
+                                sharedViewModel.setUsuario(usuarioIngresado)
+                                findNavController().navigate(R.id.mapsActivity)
+                            }
 
                         } else {
                             val snackbar =
@@ -324,8 +347,8 @@ class LogIn : Fragment() {
                 }
             }
 
-        } else {
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-        }
+        }// else {
+          //  startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        //}
     }
 }
