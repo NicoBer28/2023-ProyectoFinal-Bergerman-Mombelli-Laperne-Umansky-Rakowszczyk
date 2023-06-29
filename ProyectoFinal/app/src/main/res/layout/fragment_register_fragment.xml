@@ -94,6 +94,17 @@
             android:layout_height="wrap_content"
             android:text="REGISTRARSE" />
 
+<<<<<<< Updated upstream
     </LinearLayout>
+=======
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_mascotas"
+            android:layout_width="57dp"
+            android:layout_height="196dp"
+            tools:layout_editor_absoluteX="345dp"
+            tools:layout_editor_absoluteY="2dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> Stashed changes
 
 </FrameLayout>
