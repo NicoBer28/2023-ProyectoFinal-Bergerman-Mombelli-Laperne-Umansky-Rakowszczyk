@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".TwoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TWO" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="Two" />
+
+    </RelativeLayout>
 
 </FrameLayout>

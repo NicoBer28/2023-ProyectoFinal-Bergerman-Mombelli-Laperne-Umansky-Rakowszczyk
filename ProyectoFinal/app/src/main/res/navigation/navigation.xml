@@ -20,8 +20,9 @@
             android:id="@+id/action_logIn_to_mapsActivity"
             app:destination="@id/mapsActivity" />
         <action
-            android:id="@+id/action_logIn_to_ubicacionActivity"
-            app:destination="@id/ubicacionActivity" />
+            android:id="@+id/action_logIn_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+
     </fragment>
     <fragment
         android:id="@+id/register_fragment"
@@ -34,13 +35,9 @@
         android:label="fragment_bienvenida"
         tools:layout="@layout/fragment_bienvenida" />
     <activity
-        android:id="@+id/mapsActivity"
-        android:name="com.example.proyectofinal.mapsActivity"
-        android:label="activity_maps"
-        tools:layout="@layout/activity_maps" />
-    <activity
-        android:id="@+id/ubicacionActivity"
-        android:name="com.example.proyectofinal.ubicacionActivity"
-        android:label="activity_ubicacion"
-        tools:layout="@layout/activity_ubicacion" />
+        android:id="@+id/mainActivity2"
+        android:name="com.example.proyectofinal.MainActivity2"
+        android:label="activity_main2"
+        tools:layout="@layout/activity_main2" />
+
 </navigation>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<<<<<<< Updated upstream
-
-=======
     <item
         android:id="@+id/one"
         android:icon="@drawable/one"
@@ -15,5 +12,5 @@
         android:id="@+id/three"
         android:icon="@drawable/three"
         android:title="three"/>
->>>>>>> Stashed changes
+
 </menu>
