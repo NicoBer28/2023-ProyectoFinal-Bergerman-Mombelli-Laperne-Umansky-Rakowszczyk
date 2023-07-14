@@ -39,7 +39,7 @@
             app:layout_constraintHorizontal_bias="0.481"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordConfirm"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
             app:strokeColor="#FFFFFF" />
 
         <EditText
@@ -118,17 +118,18 @@
             android:id="@+id/passwordConfirm"
             android:layout_width="280dp"
             android:layout_height="55dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Confrimar contraseña"
             android:inputType="textPassword"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordCreate"
             tools:ignore="MissingConstraints"
             tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_editor_absoluteY="483dp" />
+            tools:layout_conversion_absoluteWidth="411dp" />
 
         <EditText
             android:id="@+id/passwordCreate"
