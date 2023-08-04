@@ -25,7 +25,6 @@ lateinit var passwordCreate : EditText
 lateinit var  passwordConfirm: EditText
 
 lateinit var btnPreviousFragment: Button
-lateinit var btnRegister_vendedor: Button
 lateinit var registerConfirm: Button
 
 lateinit var nombreIngresado : String
@@ -59,7 +58,6 @@ class Register_fragment : Fragment() {
         auth = Firebase.auth
 
         btnPreviousFragment = view.findViewById<Button>(R.id.btnPreviousFragment)
-        btnRegister_vendedor = view.findViewById<Button>(R.id.btnRegister_vendedor)
         registerConfirm = view.findViewById<Button>(R.id.registerConfirm)
         name = view.findViewById<EditText>(R.id.name)
         apellido = view.findViewById<EditText>(R.id.apellido)
@@ -158,9 +156,6 @@ class Register_fragment : Fragment() {
 
         btnPreviousFragment.setOnClickListener {
             findNavController().navigate(R.id.logIn)
-        }
-        btnRegister_vendedor.setOnClickListener {
-            findNavController().navigate(R.id.action_register_fragment_to_vendedoresRegistrar)
         }
     }
 }

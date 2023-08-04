@@ -26,29 +26,16 @@
         android:id="@+id/register_fragment"
         android:name="com.example.proyectofinal.Fragments.Register_fragment"
         android:label="fragment_register_fragment"
-        tools:layout="@layout/fragment_register_fragment" >
-        <action
-            android:id="@+id/action_register_fragment_to_vendedoresRegistrar"
-            app:destination="@id/vendedoresRegistrar" />
-    </fragment>
+        tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/bienvenida"
         android:name="com.example.proyectofinal.Pruebas.bienvenida"
         android:label="fragment_bienvenida"
         tools:layout="@layout/fragment_bienvenida" />
     <activity
-        android:id="@+id/mapsActivity"
-        android:name="com.example.proyectofinal.mapsActivity"
-        android:label="activity_maps"
-        tools:layout="@layout/activity_maps" />
-    <activity
-        android:id="@+id/ubicacionActivity"
-        android:name="com.example.proyectofinal.ubicacionActivity"
-        android:label="activity_ubicacion"
-        tools:layout="@layout/activity_ubicacion" />
-    <fragment
-        android:id="@+id/vendedoresRegistrar"
-        android:name="com.example.proyectofinal.VendedoresRegistrar"
-        android:label="fragment_vendedores_registrar"
-        tools:layout="@layout/fragment_vendedores_registrar" />
+        android:id="@+id/mainActivity2"
+        android:name="com.example.proyectofinal.Activities.MapaActivity"
+        android:label="activity_main2"
+        tools:layout="@layout/activity_mapa" />
+
 </navigation>

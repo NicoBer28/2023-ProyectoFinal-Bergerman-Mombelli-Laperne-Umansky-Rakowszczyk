@@ -8,7 +8,7 @@ class MainActivity : AppCompatActivity() {
         Thread.sleep(2000)
         setTheme(R.style.Theme_ProyectoFinal)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_logueo)
     }
 
 
