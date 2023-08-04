@@ -81,7 +81,7 @@ class LogIn : Fragment() {
         auth = Firebase.auth
 
         botonLogin = view.findViewById<Button>(R.id.btnLogin)
-        botonRegistro = view.findViewById<Button>(R.id.btnRegister)
+        botonRegistro = view.findViewById<Button>(R.id.btnRegister2)
         botonRestablecerContra = view.findViewById<Button>(R.id.restablecerContra)
 
         usuario = view.findViewById<EditText>(R.id.username)
